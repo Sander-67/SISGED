@@ -1,0 +1,1821 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "SISGED API",
+        "description": "API REST do sistema SISGED. Documentação gerada com L5-Swagger (OpenAPI 3).",
+        "contact": {
+            "email": "contato@sisged.com.br"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api/v1",
+            "description": "Servidor da API"
+        }
+    ],
+    "paths": {
+        "/administradores": {
+            "get": {
+                "tags": [
+                    "Administradores"
+                ],
+                "summary": "Lista todos os administradores",
+                "operationId": "c813fc92340f4f9c46c3b52ce1ea5164",
+                "responses": {
+                    "200": {
+                        "description": "Lista de administradores",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Administrador"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Administradores"
+                ],
+                "summary": "Cadastra um novo administrador",
+                "operationId": "ef7624574086c4a39ea974fcbd06a2cd",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Administrador"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Administrador criado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Administrador"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
+        "/administradores/{idAdministrador}": {
+            "get": {
+                "tags": [
+                    "Administradores"
+                ],
+                "summary": "Exibe um administrador específico",
+                "operationId": "6bc198c5002fd3c9d5df240ebbf3fbd8",
+                "parameters": [
+                    {
+                        "name": "idAdministrador",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Administrador encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Administrador"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Administrador não encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Administradores"
+                ],
+                "summary": "Atualiza um administrador",
+                "operationId": "ee88def6046e32a76da3b652d3197fd3",
+                "parameters": [
+                    {
+                        "name": "idAdministrador",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Administrador"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Administrador atualizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Administrador"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Administrador não encontrado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Administradores"
+                ],
+                "summary": "Remove um administrador",
+                "operationId": "aaf881c13208ab7dcdac2eb083df9127",
+                "parameters": [
+                    {
+                        "name": "idAdministrador",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Administrador removido"
+                    },
+                    "404": {
+                        "description": "Administrador não encontrado"
+                    }
+                }
+            }
+        },
+        "/alunos": {
+            "get": {
+                "tags": [
+                    "Alunos"
+                ],
+                "summary": "Lista todos os alunos",
+                "description": "Retorna uma lista paginada de alunos cadastrados",
+                "operationId": "df60868136a72dcde3f23d5761e263a7",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Quantidade de registros por página",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 15
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de alunos retornada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Aluno"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Alunos"
+                ],
+                "summary": "Cadastra um novo aluno",
+                "operationId": "40440e954bbf3923a93be1388ac34755",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nomeAluno",
+                                    "cpfAluno",
+                                    "emailAluno"
+                                ],
+                                "properties": {
+                                    "nomeAluno": {
+                                        "type": "string",
+                                        "example": "Maria Silva"
+                                    },
+                                    "cpfAluno": {
+                                        "type": "integer",
+                                        "example": 12345678900
+                                    },
+                                    "emailAluno": {
+                                        "type": "string",
+                                        "example": "maria.silva@email.com"
+                                    },
+                                    "telefoneAluno": {
+                                        "type": "integer",
+                                        "example": 31998765432
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Aluno criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Aluno"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
+        "/alunos/{idAluno}": {
+            "get": {
+                "tags": [
+                    "Alunos"
+                ],
+                "summary": "Exibe os dados de um aluno específico",
+                "operationId": "8639853b5de3ead7eb876dd4d2b398e5",
+                "parameters": [
+                    {
+                        "name": "idAluno",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Aluno encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Aluno"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Aluno não encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Alunos"
+                ],
+                "summary": "Atualiza os dados de um aluno",
+                "operationId": "3a909c17b258c9b4673046cf6a59c176",
+                "parameters": [
+                    {
+                        "name": "idAluno",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nomeAluno": {
+                                        "type": "string",
+                                        "example": "Maria Silva Souza"
+                                    },
+                                    "cpfAluno": {
+                                        "type": "integer",
+                                        "example": 12345678900
+                                    },
+                                    "emailAluno": {
+                                        "type": "string",
+                                        "example": "maria.souza@email.com"
+                                    },
+                                    "telefoneAluno": {
+                                        "type": "integer",
+                                        "example": 31998765432
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Aluno atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Aluno"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Aluno não encontrado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Alunos"
+                ],
+                "summary": "Remove um aluno",
+                "operationId": "29e37d299e3f6b26c64b40c68dbdb866",
+                "parameters": [
+                    {
+                        "name": "idAluno",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Aluno removido com sucesso"
+                    },
+                    "404": {
+                        "description": "Aluno não encontrado"
+                    }
+                }
+            }
+        },
+        "/aulas": {
+            "get": {
+                "tags": [
+                    "Aulas"
+                ],
+                "summary": "Lista todas as aulas",
+                "operationId": "9a747687ed7a714e41add80bb3e140ee",
+                "responses": {
+                    "200": {
+                        "description": "Lista de aulas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Aula"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Aulas"
+                ],
+                "summary": "Cadastra uma nova aula",
+                "operationId": "85ba0950b7f8b064fb10f53d05ec925e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Aula"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Aula criada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Aula"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
+        "/aulas/{idAula}": {
+            "get": {
+                "tags": [
+                    "Aulas"
+                ],
+                "summary": "Exibe uma aula específica",
+                "operationId": "7a3868b14add1cb7a2ff270f214610a7",
+                "parameters": [
+                    {
+                        "name": "idAula",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Aula encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Aula"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Aula não encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Aulas"
+                ],
+                "summary": "Atualiza uma aula",
+                "operationId": "08d9121751773da751873cb861be6cc2",
+                "parameters": [
+                    {
+                        "name": "idAula",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Aula"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Aula atualizada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Aula"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Aula não encontrada"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Aulas"
+                ],
+                "summary": "Remove uma aula",
+                "operationId": "ae91b4ef31b34c5190a3dc7094adb89c",
+                "parameters": [
+                    {
+                        "name": "idAula",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Aula removida"
+                    },
+                    "404": {
+                        "description": "Aula não encontrada"
+                    }
+                }
+            }
+        },
+        "/auth/administrador/login": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Login de administrador (acesso total)",
+                "operationId": "5d03c7a8e92386f10a9ea4afc0d92dbf",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "emailAdministrador",
+                                    "senhaAdministrador"
+                                ],
+                                "properties": {
+                                    "emailAdministrador": {
+                                        "type": "string",
+                                        "example": "admin@sisged.com"
+                                    },
+                                    "senhaAdministrador": {
+                                        "type": "string",
+                                        "example": "senha123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login realizado com sucesso"
+                    },
+                    "401": {
+                        "description": "Credenciais inválidas"
+                    }
+                }
+            }
+        },
+        "/auth/aluno/login": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Login de aluno (acesso restrito, somente leitura de cursos)",
+                "operationId": "d41ddf7aa75e9d868e7e8b4e69c9b84c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "emailAluno",
+                                    "senhaAluno"
+                                ],
+                                "properties": {
+                                    "emailAluno": {
+                                        "type": "string",
+                                        "example": "aluno@email.com"
+                                    },
+                                    "senhaAluno": {
+                                        "type": "string",
+                                        "example": "senha123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login realizado com sucesso"
+                    },
+                    "401": {
+                        "description": "Credenciais inválidas"
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Logout (invalida o token atual)",
+                "operationId": "6abf3b64a4bc7838d56346f05a5153af",
+                "responses": {
+                    "200": {
+                        "description": "Logout realizado com sucesso"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/cursos": {
+            "get": {
+                "tags": [
+                    "Cursos"
+                ],
+                "summary": "Lista todos os cursos",
+                "operationId": "b96eabc1969edbe2bb0436759523b3a8",
+                "responses": {
+                    "200": {
+                        "description": "Lista de cursos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Curso"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Cursos"
+                ],
+                "summary": "Cadastra um novo curso",
+                "operationId": "42b1ddb43b31bbb9a34efa2b3139705f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Curso"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Curso criado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Curso"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
+        "/aluno/cursos": {
+            "get": {
+                "tags": [
+                    "Cursos"
+                ],
+                "summary": "Lista somente o nome dos cursos (acesso do aluno)",
+                "operationId": "019341c4603bc54e7613f2e59fb2d5cb",
+                "responses": {
+                    "200": {
+                        "description": "Lista de nomes de cursos"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/cursos/{idCurso}": {
+            "get": {
+                "tags": [
+                    "Cursos"
+                ],
+                "summary": "Exibe um curso específico",
+                "operationId": "8d01be01c463087da2d731e816cceb12",
+                "parameters": [
+                    {
+                        "name": "idCurso",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Curso encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Curso"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Curso não encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Cursos"
+                ],
+                "summary": "Atualiza um curso",
+                "operationId": "92a837f25a7e8efdca390deee6b2e10f",
+                "parameters": [
+                    {
+                        "name": "idCurso",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Curso"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Curso atualizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Curso"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Curso não encontrado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Cursos"
+                ],
+                "summary": "Remove um curso",
+                "operationId": "a4ec09d080237d7b101fe0868b2807f1",
+                "parameters": [
+                    {
+                        "name": "idCurso",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Curso removido"
+                    },
+                    "404": {
+                        "description": "Curso não encontrado"
+                    }
+                }
+            }
+        },
+        "/instrutores": {
+            "get": {
+                "tags": [
+                    "Instrutores"
+                ],
+                "summary": "Lista todos os instrutores",
+                "operationId": "2cf4d2d551dbc70b6243b2edb0ab8c27",
+                "responses": {
+                    "200": {
+                        "description": "Lista de instrutores",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Instrutor"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Instrutores"
+                ],
+                "summary": "Cadastra um novo instrutor",
+                "operationId": "b49ba1e0cc7d5bb1e2a8f42826c780a4",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Instrutor"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Instrutor criado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Instrutor"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
+        "/instrutores/{idInstrutor}": {
+            "get": {
+                "tags": [
+                    "Instrutores"
+                ],
+                "summary": "Exibe um instrutor específico",
+                "operationId": "98b6296a861e3221481fb31866fd0a94",
+                "parameters": [
+                    {
+                        "name": "idInstrutor",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Instrutor encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Instrutor"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Instrutor não encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Instrutores"
+                ],
+                "summary": "Atualiza um instrutor",
+                "operationId": "b18bbd3ac208d02350f5bc027b4c1d76",
+                "parameters": [
+                    {
+                        "name": "idInstrutor",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Instrutor"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Instrutor atualizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Instrutor"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Instrutor não encontrado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Instrutores"
+                ],
+                "summary": "Remove um instrutor",
+                "operationId": "6aa4a0a40939be21a3dc876e90416bc4",
+                "parameters": [
+                    {
+                        "name": "idInstrutor",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Instrutor removido"
+                    },
+                    "404": {
+                        "description": "Instrutor não encontrado"
+                    }
+                }
+            }
+        },
+        "/materias": {
+            "get": {
+                "tags": [
+                    "Materias"
+                ],
+                "summary": "Lista todas as matérias",
+                "operationId": "dc0546c43ffb8b5ba7e7022c1dd47669",
+                "responses": {
+                    "200": {
+                        "description": "Lista de matérias",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Materia"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Materias"
+                ],
+                "summary": "Cadastra uma nova matéria",
+                "operationId": "25e80a7056e8d10469e998046d85909c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Materia"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Matéria criada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Materia"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
+        "/materias/{idMateria}": {
+            "get": {
+                "tags": [
+                    "Materias"
+                ],
+                "summary": "Exibe uma matéria específica",
+                "operationId": "fedc96dd0a2e15e06efbdfee63ceea51",
+                "parameters": [
+                    {
+                        "name": "idMateria",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Matéria encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Materia"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Matéria não encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Materias"
+                ],
+                "summary": "Atualiza uma matéria",
+                "operationId": "887ac10378c975a52aa1ace5fb6f29db",
+                "parameters": [
+                    {
+                        "name": "idMateria",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Materia"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Matéria atualizada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Materia"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Matéria não encontrada"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Materias"
+                ],
+                "summary": "Remove uma matéria",
+                "operationId": "1cedf95579641e806a3bdfa3ca953dbd",
+                "parameters": [
+                    {
+                        "name": "idMateria",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Matéria removida"
+                    },
+                    "404": {
+                        "description": "Matéria não encontrada"
+                    }
+                }
+            }
+        },
+        "/salas": {
+            "get": {
+                "tags": [
+                    "Salas"
+                ],
+                "summary": "Lista todas as salas",
+                "operationId": "77cbb01548b24a50ac966f2079599ed4",
+                "responses": {
+                    "200": {
+                        "description": "Lista de salas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Sala"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Salas"
+                ],
+                "summary": "Cadastra uma nova sala",
+                "operationId": "78efa5809330d45e35a25bf20782b383",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Sala"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Sala criada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Sala"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
+        "/salas/{idSala}": {
+            "get": {
+                "tags": [
+                    "Salas"
+                ],
+                "summary": "Exibe uma sala específica",
+                "operationId": "e4e090e7427afabfe1b7c59a57955608",
+                "parameters": [
+                    {
+                        "name": "idSala",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sala encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Sala"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Sala não encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Salas"
+                ],
+                "summary": "Atualiza uma sala",
+                "operationId": "c9ceab6514225750528b373f20273c5e",
+                "parameters": [
+                    {
+                        "name": "idSala",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Sala"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sala atualizada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Sala"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Sala não encontrada"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Salas"
+                ],
+                "summary": "Remove uma sala",
+                "operationId": "aaad5dc0a3ce0b9c7c87f4dbc969304e",
+                "parameters": [
+                    {
+                        "name": "idSala",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Sala removida"
+                    },
+                    "404": {
+                        "description": "Sala não encontrada"
+                    }
+                }
+            }
+        },
+        "/turmas": {
+            "get": {
+                "tags": [
+                    "Turmas"
+                ],
+                "summary": "Lista todas as turmas",
+                "operationId": "b738224b89469d17786f05bf28b5308f",
+                "responses": {
+                    "200": {
+                        "description": "Lista de turmas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Turma"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Turmas"
+                ],
+                "summary": "Cadastra uma nova turma",
+                "operationId": "100c37f4d15bddb37bb4a673b9e8e66b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Turma"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Turma criada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Turma"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
+        "/turmas/{idTurma}": {
+            "get": {
+                "tags": [
+                    "Turmas"
+                ],
+                "summary": "Exibe uma turma específica",
+                "operationId": "3e06fce4839c546346da1000f197a092",
+                "parameters": [
+                    {
+                        "name": "idTurma",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Turma encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Turma"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Turma não encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Turmas"
+                ],
+                "summary": "Atualiza uma turma",
+                "operationId": "c85763a6e46b4e83769ebf09008ea9ac",
+                "parameters": [
+                    {
+                        "name": "idTurma",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Turma"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Turma atualizada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Turma"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Turma não encontrada"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Turmas"
+                ],
+                "summary": "Remove uma turma",
+                "operationId": "ac9ef8a7d534b8a38fe788cce6d73aed",
+                "parameters": [
+                    {
+                        "name": "idTurma",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Turma removida"
+                    },
+                    "404": {
+                        "description": "Turma não encontrada"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Administrador": {
+                "title": "Administrador",
+                "properties": {
+                    "idAdministrador": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "usuarioAdministrador": {
+                        "type": "string",
+                        "example": "admin"
+                    },
+                    "emailAdministrador": {
+                        "type": "string",
+                        "example": "admin@sisged.com"
+                    }
+                },
+                "type": "object"
+            },
+            "Aluno": {
+                "title": "Aluno",
+                "required": [
+                    "nomeAluno",
+                    "cpfAluno",
+                    "emailAluno"
+                ],
+                "properties": {
+                    "idAluno": {
+                        "type": "integer",
+                        "readOnly": true,
+                        "example": 1
+                    },
+                    "nomeAluno": {
+                        "type": "string",
+                        "example": "Maria Silva"
+                    },
+                    "cpfAluno": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 12345678900
+                    },
+                    "emailAluno": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "maria.silva@email.com"
+                    },
+                    "telefoneAluno": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 31998765432,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true
+                    }
+                },
+                "type": "object"
+            },
+            "Aula": {
+                "title": "Aula",
+                "required": [
+                    "dataAula"
+                ],
+                "properties": {
+                    "idAula": {
+                        "type": "integer",
+                        "readOnly": true,
+                        "example": 1
+                    },
+                    "Administrador_idAdministrador": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "Aluno_idAluno": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "Materia_idMateria": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "Turma_idTurma": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "dataAula": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-03-10"
+                    },
+                    "horarioinicioAula": {
+                        "type": "string",
+                        "example": "19:00:00"
+                    },
+                    "horariofimAula": {
+                        "type": "string",
+                        "example": "22:00:00"
+                    },
+                    "duracaoAula": {
+                        "type": "string",
+                        "example": "03:00:00"
+                    },
+                    "tipoAula": {
+                        "type": "string",
+                        "example": "Prática"
+                    },
+                    "statusAula": {
+                        "type": "boolean",
+                        "example": true
+                    }
+                },
+                "type": "object"
+            },
+            "Curso": {
+                "title": "Curso",
+                "required": [
+                    "nomeCurso"
+                ],
+                "properties": {
+                    "idCurso": {
+                        "type": "integer",
+                        "readOnly": true,
+                        "example": 1
+                    },
+                    "Turma_idTurma": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "nomeCurso": {
+                        "type": "string",
+                        "example": "Desenvolvimento Web"
+                    },
+                    "modalidadeCurso": {
+                        "type": "string",
+                        "example": "EAD"
+                    },
+                    "cargahorariaCurso": {
+                        "type": "integer",
+                        "example": 160
+                    },
+                    "nivelCurso": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
+            "Instrutor": {
+                "title": "Instrutor",
+                "required": [
+                    "nomeInstrutor",
+                    "cpfInstrutor",
+                    "emailInstrutor"
+                ],
+                "properties": {
+                    "idInstrutor": {
+                        "type": "integer",
+                        "readOnly": true,
+                        "example": 1
+                    },
+                    "Aula_idAula": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "nomeInstrutor": {
+                        "type": "string",
+                        "example": "Carlos Souza"
+                    },
+                    "cpfInstrutor": {
+                        "type": "integer",
+                        "example": 98765432100
+                    },
+                    "emailInstrutor": {
+                        "type": "string",
+                        "example": "carlos.souza@email.com"
+                    },
+                    "telefoneInstrutor": {
+                        "type": "integer",
+                        "example": 31991234567
+                    },
+                    "areaInstrutor": {
+                        "type": "string",
+                        "example": "Backend"
+                    },
+                    "statusInstrutor": {
+                        "type": "boolean",
+                        "example": true
+                    }
+                },
+                "type": "object"
+            },
+            "Materia": {
+                "title": "Materia",
+                "required": [
+                    "nomeMateria"
+                ],
+                "properties": {
+                    "idMateria": {
+                        "type": "integer",
+                        "readOnly": true,
+                        "example": 1
+                    },
+                    "siglaMateria": {
+                        "type": "string",
+                        "example": "POO"
+                    },
+                    "nomeMateria": {
+                        "type": "string",
+                        "example": "Programação Orientada a Objetos"
+                    },
+                    "cargahorariaMateria": {
+                        "type": "string",
+                        "example": "40:00:00"
+                    },
+                    "ementaMateria": {
+                        "type": "string",
+                        "example": "Conceitos de POO em PHP e Java"
+                    }
+                },
+                "type": "object"
+            },
+            "Sala": {
+                "title": "Sala",
+                "required": [
+                    "nomeSala"
+                ],
+                "properties": {
+                    "idSala": {
+                        "type": "integer",
+                        "readOnly": true,
+                        "example": 1
+                    },
+                    "Aula_idAula": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "nomeSala": {
+                        "type": "string",
+                        "example": "Sala 202"
+                    },
+                    "capacidadeSala": {
+                        "type": "integer",
+                        "example": 30
+                    },
+                    "tipoAula": {
+                        "type": "string",
+                        "example": "Laboratório"
+                    },
+                    "blocoandarAula": {
+                        "type": "string",
+                        "example": "Bloco B - 2º andar"
+                    }
+                },
+                "type": "object"
+            },
+            "Turma": {
+                "title": "Turma",
+                "required": [
+                    "codigoTurma",
+                    "turnoTurma"
+                ],
+                "properties": {
+                    "idTurma": {
+                        "type": "integer",
+                        "readOnly": true,
+                        "example": 1
+                    },
+                    "codigoTurma": {
+                        "type": "integer",
+                        "example": 2026001
+                    },
+                    "turnoTurma": {
+                        "type": "string",
+                        "example": "Noturno"
+                    },
+                    "datainicioTurma": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-02-01"
+                    },
+                    "datafimTurma": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-12-15"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Alunos",
+            "description": "Endpoints para gerenciamento (CRUD) de alunos"
+        },
+        {
+            "name": "Turmas",
+            "description": "Endpoints para gerenciamento (CRUD) de turmas"
+        },
+        {
+            "name": "Cursos",
+            "description": "Endpoints para gerenciamento (CRUD) de cursos"
+        },
+        {
+            "name": "Administradores",
+            "description": "Endpoints para gerenciamento (CRUD) de administradores"
+        },
+        {
+            "name": "Materias",
+            "description": "Endpoints para gerenciamento (CRUD) de matérias"
+        },
+        {
+            "name": "Aulas",
+            "description": "Endpoints para gerenciamento (CRUD) de aulas"
+        },
+        {
+            "name": "Instrutores",
+            "description": "Endpoints para gerenciamento (CRUD) de instrutores"
+        },
+        {
+            "name": "Salas",
+            "description": "Endpoints para gerenciamento (CRUD) de salas"
+        },
+        {
+            "name": "Autenticação",
+            "description": "Autenticação"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ]
+}
