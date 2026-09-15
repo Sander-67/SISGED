@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
 
-    // Rotas de login (públicas, sem autenticação)
-    Route::post('auth/administrador/login', [AuthController::class, 'loginAdministrador']);
-    Route::post('auth/aluno/login', [AuthController::class, 'loginAluno']);
+    // Rotas de login (públicas, sem autenticação, mas com limite de tentativas)
+    Route::middleware('throttle:5,1')->group(function () {
+        Route::post('auth/administrador/login', [AuthController::class, 'loginAdministrador']);
+        Route::post('auth/aluno/login', [AuthController::class, 'loginAluno']);
+    });
     Route::post('auth/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
     // Rota do Aluno: só pode ver os nomes dos cursos
