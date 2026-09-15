@@ -11,7 +11,7 @@ class StoreTurmaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'codigoTurma' => ['required', 'integer'],
+            'codigoTurma' => ['required', 'integer', 'unique:turma,codigoTurma'],
             'turnoTurma' => ['required', 'string', 'max:50'],
             'datainicioTurma' => ['nullable', 'date'],
             'datafimTurma' => ['nullable', 'date', 'after_or_equal:datainicioTurma'],
