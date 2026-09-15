@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateAlunoRequest;
 use App\Http\Resources\AlunoResource;
 use App\Models\Aluno;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 
 class AlunoController extends Controller
 {
@@ -66,7 +67,10 @@ class AlunoController extends Controller
      */
     public function store(StoreAlunoRequest $request): JsonResponse
     {
-        $aluno = Aluno::create($request->validated());
+        $dados = $request->validated();
+        $dados['senhaAluno'] = Hash::make($dados['senhaAluno']);
+
+        $aluno = Aluno::create($dados);
 
         return (new AlunoResource($aluno))
             ->response()
@@ -128,7 +132,12 @@ class AlunoController extends Controller
      */
     public function update(UpdateAlunoRequest $request, Aluno $aluno): AlunoResource
     {
-        $aluno->update($request->validated());
+        $dados = $request->validated();
+        if (isset($dados['senhaAluno'])) {
+            $dados['senhaAluno'] = Hash::make($dados['senhaAluno']);
+        }
+
+        $aluno->update($dados);
 
         return new AlunoResource($aluno);
     }
