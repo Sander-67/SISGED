@@ -18,6 +18,7 @@ class StoreAlunoRequest extends FormRequest
             'cpfAluno' => ['required', 'integer', 'digits:11', 'unique:aluno,cpfAluno'],
             'emailAluno' => ['required', 'email', 'max:100', 'unique:aluno,emailAluno'],
             'telefoneAluno' => ['nullable', 'integer'],
+            'senhaAluno' => ['required', 'string', 'min:8'],
         ];
     }
 
@@ -31,6 +32,8 @@ class StoreAlunoRequest extends FormRequest
             'emailAluno.required' => 'O e-mail é obrigatório.',
             'emailAluno.email' => 'Informe um e-mail válido.',
             'emailAluno.unique' => 'Já existe um aluno cadastrado com este e-mail.',
+            'senhaAluno.required' => 'A senha é obrigatória.',
+            'senhaAluno.min' => 'A senha deve ter no mínimo 8 caracteres.',
         ];
     }
 }
