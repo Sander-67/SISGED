@@ -27,6 +27,7 @@ class UpdateAlunoRequest extends FormRequest
                 Rule::unique('aluno', 'emailAluno')->ignore($idAluno, 'idAluno'),
             ],
             'telefoneAluno' => ['nullable', 'integer'],
+            'senhaAluno' => ['sometimes', 'required', 'string', 'min:8'],
         ];
     }
 }
