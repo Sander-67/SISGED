@@ -147,6 +147,16 @@ body {
     background: #003bd1;
 }
 
+.logo {
+    width: 120px;
+    height: 120px;
+
+    object-fit: contain;
+
+    margin-left: 15px;
+    margin-right: 40px;
+}
+
 
 /* ÁREA DO USUÁRIO */
 
@@ -316,7 +326,7 @@ body {
 
     justify-content: center;
 
-    color: #555555;
+    color: #003bd1;
 
     font-size: 13px;
 }

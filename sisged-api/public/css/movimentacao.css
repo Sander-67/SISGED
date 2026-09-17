@@ -60,26 +60,15 @@ body {
     color: #111111;
 }
 
-.logo-link strong {
-    font-size: 16px;
-    font-weight: 700;
-    color: #111111;
-}
 
-.logo-icon {
-    width: 28px;
-    height: 28px;
+.logo {
+    width: 120px;
+    height: 120px;
 
-    background: #003bd1;
-    color: #ffffff;
+    object-fit: contain;
 
-    border-radius: 5px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 13px;
+    margin-left: 15px;
+    margin-right: 40px;
 }
 
 
@@ -297,7 +286,7 @@ body {
     align-items: center;
     justify-content: center;
 
-    color: #555555;
+    color: #003bd1;
 
     font-size: 13px;
 }
