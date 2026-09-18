@@ -43,32 +43,13 @@ header {
 /* LOGO */
 
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 9px;
+    width: 120px;
+    height: 120px;
 
-    color: var(--texto);
-    text-decoration: none;
+    object-fit: contain;
 
-    font-size: 16px;
-    font-weight: bold;
-
-    min-width: 230px;
-}
-
-.logo-icone {
-    width: 27px;
-    height: 27px;
-
-    background-color: var(--azul-principal);
-    border-radius: 5px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: white;
-    font-size: 13px;
+    margin-left: 15px;
+    margin-right: 40px;
 }
 
 .topbar {
@@ -121,7 +102,7 @@ header {
 }
 
 .logo-link strong {
-    color: #111111;
+    color: #f7f4f4;
 
     font-size: 16px;
     font-weight: 700;
