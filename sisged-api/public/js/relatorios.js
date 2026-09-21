@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+    Sessao.exigirLogin();
     preencherTopbar();
 
     preencherSelect("tipo-relatorio", [
