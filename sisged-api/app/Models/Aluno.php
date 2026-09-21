@@ -35,10 +35,15 @@ class Aluno extends Model
     'emailAluno',
     'telefoneAluno',
     'senhaAluno',
+    'deve_trocar_senha',
 ];
 
 protected $hidden = [
     'senhaAluno',
+];
+
+protected $casts = [
+    'deve_trocar_senha' => 'boolean',
 ];
 
     public function aulas()
