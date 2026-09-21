@@ -21,7 +21,52 @@ class AulaController extends Controller
      */
     public function index(): JsonResponse
     {
-        $aulas = Aula::orderBy('dataAula', 'desc')->paginate(request('per_page', 15));
+        $query = Aula::with(['turma', 'instrutores', 'salas'])->orderBy('dataAula', 'desc');
+
+        // Filtros combináveis: pode usar um, todos, ou nenhum ao mesmo
+        // tempo. Ex: /api/v1/aulas?instrutor_id=3&sala_id=2&data=2026-09-20
+
+        if (request()->filled('instrutor_id')) {
+            $instrutorId = request('instrutor_id');
+            $query->whereHas('instrutores', function ($q) use ($instrutorId) {
+                $q->where('idInstrutor', $instrutorId);
+            });
+        }
+
+        if (request()->filled('sala_id')) {
+            $salaId = request('sala_id');
+            $query->whereHas('salas', function ($q) use ($salaId) {
+                $q->where('idSala', $salaId);
+            });
+        }
+
+        if (request()->filled('data')) {
+            $query->whereDate('dataAula', request('data'));
+        }
+
+        $aulas = $query->paginate(request('per_page', 15));
+        return response()->json(AulaResource::collection($aulas)->response()->getData(true));
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/instrutor/minhas-aulas",
+     *     tags={"Aulas"},
+     *     summary="Lista as aulas do instrutor autenticado",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(response=200, description="Lista de aulas do instrutor")
+     * )
+     */
+    public function minhasAulas(): JsonResponse
+    {
+        $instrutor = request()->user();
+
+        $aulas = Aula::whereHas('instrutores', function ($q) use ($instrutor) {
+            $q->where('idInstrutor', $instrutor->idInstrutor);
+        })
+            ->orderBy('dataAula', 'desc')
+            ->paginate(request('per_page', 15));
+
         return response()->json(AulaResource::collection($aulas)->response()->getData(true));
     }
 
