@@ -18,6 +18,7 @@ class StoreInstrutorRequest extends FormRequest
             'telefoneInstrutor' => ['nullable', 'integer'],
             'areaInstrutor' => ['nullable', 'string', 'max:50'],
             'statusInstrutor' => ['nullable', 'boolean'],
+            'senhaInstrutor' => ['sometimes', 'string', 'min:8'],
         ];
     }
 }
