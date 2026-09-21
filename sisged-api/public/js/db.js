@@ -71,11 +71,48 @@ const Sessao = {
     },
 
     exigirLogin() {
-        if (!this.obter()) {
+        const usuario = this.obter();
+        if (!usuario) {
             window.location.href = "login.html";
+            return;
         }
+
+        // Se a senha ainda é a padrão, não deixa usar o resto do site
+        // até trocar (a API também bloqueia isso, isso aqui é só pra
+        // já mandar a pessoa pro lugar certo sem esperar dar erro).
+        const paginaAtual = window.location.pathname.split("/").pop();
+        if (usuario.deveTrocarSenha && paginaAtual !== "trocar-senha.html") {
+            window.location.href = "trocar-senha.html";
+            return;
+        }
+
+        restringirMenuPorTipo(usuario);
     }
 };
+
+// Páginas de administração que Aluno e Instrutor não podem acessar.
+const PAGINAS_SOMENTE_ADMIN = ["cadastro.html", "movimentacao.html"];
+
+function restringirMenuPorTipo(usuario) {
+    const ehAdministrador = usuario.tipo === "Administrador";
+
+    // Esconde os links do menu que levam a páginas administrativas.
+    if (!ehAdministrador) {
+        document.querySelectorAll("nav a, #net-menu a").forEach(link => {
+            const destino = (link.getAttribute("href") || "").toLowerCase();
+            if (PAGINAS_SOMENTE_ADMIN.includes(destino)) {
+                link.style.display = "none";
+            }
+        });
+    }
+
+    // Se a pessoa tentar acessar a página administrativa direto pela
+    // URL (sem passar pelo menu), manda de volta pro dashboard.
+    const paginaAtual = window.location.pathname.split("/").pop();
+    if (!ehAdministrador && PAGINAS_SOMENTE_ADMIN.includes(paginaAtual)) {
+        window.location.href = "dashboard.html";
+    }
+}
 
 function preencherTopbar() {
     const usuario = Sessao.obter();
