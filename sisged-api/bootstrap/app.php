@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
   ->withMiddleware(function (Middleware $middleware): void {
     $middleware->alias([
         'tipo' => \App\Http\Middleware\CheckUserType::class,
+        'senha.trocar' => \App\Http\Middleware\ForcePasswordChange::class,
     ]);
 
     $middleware->redirectGuestsTo(fn () => null);
