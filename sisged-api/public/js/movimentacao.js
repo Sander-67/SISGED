@@ -36,9 +36,8 @@ const CONFIG_MOVIMENTACOES = {
 const CHAVE_STORAGE_MOV = "netnucleo_movimentacoes";
 
 document.addEventListener("DOMContentLoaded", () => {
+    Sessao.exigirLogin();
     preencherTopbar();
-
-    const botoes = document.querySelectorAll(".mov-menu");
     const area = document.getElementById("areaMovimentacao");
 
     botoes.forEach(botao => {
