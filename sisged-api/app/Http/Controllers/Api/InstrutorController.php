@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateInstrutorRequest;
 use App\Http\Resources\InstrutorResource;
 use App\Models\Instrutor;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 
 class InstrutorController extends Controller
 {
@@ -37,7 +38,15 @@ class InstrutorController extends Controller
      */
     public function store(StoreInstrutorRequest $request): JsonResponse
     {
-        $instrutor = Instrutor::create($request->validated());
+        $dados = $request->validated();
+
+        // Senha padronizada: se não vier uma senha específica, o
+        // sistema define "Instrutor@123" e obriga a troca no primeiro
+        // acesso.
+        $dados['senhaInstrutor'] = Hash::make($dados['senhaInstrutor'] ?? 'Instrutor@123');
+        $dados['deve_trocar_senha'] = true;
+
+        $instrutor = Instrutor::create($dados);
         return (new InstrutorResource($instrutor))->response()->setStatusCode(201);
     }
 
@@ -70,7 +79,12 @@ class InstrutorController extends Controller
      */
     public function update(UpdateInstrutorRequest $request, Instrutor $instrutor): InstrutorResource
     {
-        $instrutor->update($request->validated());
+        $dados = $request->validated();
+        if (isset($dados['senhaInstrutor'])) {
+            $dados['senhaInstrutor'] = Hash::make($dados['senhaInstrutor']);
+        }
+
+        $instrutor->update($dados);
         return new InstrutorResource($instrutor);
     }
 
