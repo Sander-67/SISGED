@@ -4,6 +4,35 @@ function mostrarSenha() {
     campoSenha.setAttribute("type", tipoAtual === "password" ? "text" : "password");
 }
 
+// Configuração de cada tipo de login: qual rota chamar, quais nomes de
+// campo a API espera, e como ler nome/objeto da resposta.
+const CONFIG_LOGIN = {
+    administrador: {
+        rota: "/auth/administrador/login",
+        campoEmail: "emailAdministrador",
+        campoSenha: "senhaAdministrador",
+        chaveResposta: "administrador",
+        campoNome: "usuarioAdministrador",
+        label: "Administrador"
+    },
+    aluno: {
+        rota: "/auth/aluno/login",
+        campoEmail: "emailAluno",
+        campoSenha: "senhaAluno",
+        chaveResposta: "aluno",
+        campoNome: "nomeAluno",
+        label: "Aluno"
+    },
+    instrutor: {
+        rota: "/auth/instrutor/login",
+        campoEmail: "emailInstrutor",
+        campoSenha: "senhaInstrutor",
+        chaveResposta: "instrutor",
+        campoNome: "nomeInstrutor",
+        label: "Instrutor"
+    }
+};
+
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector(".login-form");
     if (!form) return;
@@ -29,17 +58,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!valido) return;
 
+        const config = CONFIG_LOGIN[tipoUsuario];
         const botao = form.querySelector(".btn-login");
         botao.disabled = true;
         botao.textContent = "Entrando...";
 
         try {
-            const rota = tipoUsuario === "aluno" ? "/auth/aluno/login" : "/auth/administrador/login";
-            const corpo = tipoUsuario === "aluno"
-                ? { emailAluno: email, senhaAluno: senha }
-                : { emailAdministrador: email, senhaAdministrador: senha };
+            const corpo = {
+                [config.campoEmail]: email,
+                [config.campoSenha]: senha
+            };
 
-            const resposta = await fetch(API_BASE + rota, {
+            const resposta = await fetch(API_BASE + config.rota, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -55,19 +85,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            const nome = tipoUsuario === "aluno"
-                ? dados.aluno.nomeAluno
-                : dados.administrador.usuarioAdministrador;
+            const usuarioApi = dados[config.chaveResposta];
 
             Sessao.salvar({
-                nome,
+                nome: usuarioApi[config.campoNome],
                 email,
-                tipo: tipoUsuario === "aluno" ? "Aluno" : "Administrador",
+                tipo: config.label,
                 token: dados.token,
+                deveTrocarSenha: !!dados.deve_trocar_senha,
                 ultimoAcesso: new Date().toLocaleString("pt-BR")
             });
 
-            window.location.href = "dashboard.html";
+            // Se a senha ainda é a padrão, manda direto pra tela de
+            // troca de senha, antes de liberar qualquer outra página.
+            window.location.href = dados.deve_trocar_senha
+                ? "trocar-senha.html"
+                : "dashboard.html";
 
         } catch (erro) {
             exibirErro("senha", "Não foi possível conectar ao servidor.");
