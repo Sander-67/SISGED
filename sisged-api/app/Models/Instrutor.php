@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @OA\Schema(
@@ -22,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Instrutor extends Model
 {
+    use HasApiTokens, Notifiable;
+
     protected $table = 'instrutor';
     protected $primaryKey = 'idInstrutor';
 
@@ -33,10 +37,17 @@ class Instrutor extends Model
         'telefoneInstrutor',
         'areaInstrutor',
         'statusInstrutor',
+        'senhaInstrutor',
+        'deve_trocar_senha',
+    ];
+
+    protected $hidden = [
+        'senhaInstrutor',
     ];
 
     protected $casts = [
         'statusInstrutor' => 'boolean',
+        'deve_trocar_senha' => 'boolean',
     ];
 
     public function aula()
