@@ -196,18 +196,39 @@ table th {
 /* ===== FILTRO DE BUSCA ===== */
 
 .consulta-filtro input,
+.consulta-filtro select,
 #filtroConsulta {
     padding: 10px 14px !important;
     border: 1px solid #dddddd !important;
     border-radius: 8px !important;
-    min-width: 240px;
+    min-width: 200px;
     font-size: 0.9rem !important;
 }
 
 .consulta-filtro input:focus,
+.consulta-filtro select:focus,
 #filtroConsulta:focus {
     outline: none;
     border-color: #f28c28 !important;
+}
+
+.consulta-filtro {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+}
+
+.btn-secundario {
+    padding: 10px 16px !important;
+    border: 1px solid #dddddd !important;
+    border-radius: 8px !important;
+    background: #f5f6f8 !important;
+    cursor: pointer !important;
+    font-size: 0.85rem !important;
+}
+
+.btn-secundario:hover {
+    background: #e9eaee !important;
 }
 
 /* ===== TABELAS (espaçamento das células) ===== */
@@ -281,4 +302,78 @@ table tbody tr:hover {
     width: auto !important;
     height: auto !important;
     object-fit: contain !important;
+}
+/* ========================================
+   MODO ESCURO
+   Ativado quando <html data-theme="dark">
+======================================== */
+
+[data-theme="dark"] body {
+    background: #14161c !important;
+    color: #e7e9ee !important;
+}
+
+[data-theme="dark"] .page-container,
+[data-theme="dark"] .main-content {
+    background: #14161c !important;
+    color: #e7e9ee !important;
+}
+
+[data-theme="dark"] .sidebar {
+    background: #1b1e26 !important;
+    border-right: 1px solid #2a2e38 !important;
+}
+
+[data-theme="dark"] .sidebar-title,
+[data-theme="dark"] .sidebar-menu button {
+    color: #e7e9ee !important;
+}
+
+[data-theme="dark"] .consulta-tabela,
+[data-theme="dark"] table {
+    background: #1b1e26 !important;
+    color: #e7e9ee !important;
+}
+
+[data-theme="dark"] .consulta-tabela th,
+[data-theme="dark"] table th {
+    background: #23262f !important;
+    color: #f5f6f8 !important;
+}
+
+[data-theme="dark"] .consulta-tabela td,
+[data-theme="dark"] table td {
+    border-color: #2a2e38 !important;
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+    background: #1b1e26 !important;
+    color: #e7e9ee !important;
+    border-color: #2a2e38 !important;
+}
+
+[data-theme="dark"] .empty-state,
+[data-theme="dark"] .consulta-container,
+[data-theme="dark"] .cadastro-form {
+    background: #1b1e26 !important;
+    color: #e7e9ee !important;
+}
+
+/* Botão de alternância (sol/lua) na topbar */
+.theme-toggle {
+    background: transparent !important;
+    border: 1px solid rgba(245, 246, 248, 0.4) !important;
+    color: #f5f6f8 !important;
+    border-radius: 6px !important;
+    padding: 6px 12px !important;
+    cursor: pointer !important;
+    font-size: 0.9rem !important;
+    margin-left: 12px !important;
+    transition: background 0.2s ease !important;
+}
+
+.theme-toggle:hover {
+    background: rgba(245, 246, 248, 0.15) !important;
 }
