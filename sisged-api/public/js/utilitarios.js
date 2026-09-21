@@ -10,9 +10,8 @@ const LIBERACAO_MOCK = [
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
+    Sessao.exigirLogin();
     preencherTopbar();
-
-    const botoes = document.querySelectorAll(".util-menu");
     const area = document.getElementById("areaUtilitarios");
 
     botoes.forEach(botao => {
