@@ -18,7 +18,7 @@ class StoreAlunoRequest extends FormRequest
             'cpfAluno' => ['required', 'integer', 'digits:11', 'unique:aluno,cpfAluno'],
             'emailAluno' => ['required', 'email', 'max:100', 'unique:aluno,emailAluno'],
             'telefoneAluno' => ['nullable', 'integer'],
-            'senhaAluno' => ['required', 'string', 'min:8'],
+            'senhaAluno' => ['sometimes', 'string', 'min:8'],
         ];
     }
 
