@@ -68,7 +68,12 @@ class AlunoController extends Controller
     public function store(StoreAlunoRequest $request): JsonResponse
     {
         $dados = $request->validated();
-        $dados['senhaAluno'] = Hash::make($dados['senhaAluno']);
+
+        // Senha padronizada: se o administrador não enviar uma senha
+        // específica, o sistema define "Aluno@123" e marca que o aluno
+        // deve trocá-la no primeiro acesso.
+        $dados['senhaAluno'] = Hash::make($dados['senhaAluno'] ?? 'Aluno@123');
+        $dados['deve_trocar_senha'] = true;
 
         $aluno = Aluno::create($dados);
 
